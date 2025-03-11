@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: aliceblue;
+        margin: 0;
+        height: 100vh;
+      }
+      p {
+        color: aliceblue;
+        font-family: 楷体;
+        font-size: 2vw;
+        padding: 5px;
+      }
+      div1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: aliceblue;
+        font-size: 2vw;
+        font-family: 楷体;
+      }
+      .flex {
+        display: flex;
+      }
+      .Heise {
+        background-color: black;
+        border: 1px solid aliceblue;
+        box-sizing: border-box;
+        padding: 3px;
+      }
+      .flex1 {
+        flex: 1;
+      }
+      .column {
+        flex-direction: column;
+      }
+      .row {
+        flex-direction: row;
+      }
+      .daohang {
+        display: flex;
+        color: aliceblue;
+        font-size: 20px;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body class="flex">
+    <!--侧边栏-->
+    <div style="width: 150px; align-content: space-around" class="Heise">
+      <div class="daohang">回归故事</div>
+      <div class="daohang" style="margin-top: 11vw; margin-bottom: 11vw">
+        转移意识
+      </div>
+      <div class="daohang">更改档案</div>
+    </div>
+    <!--内容区-->
+    <div class="flex1 flex column">
+      <div1 style="height: 60px; z-index: 2" class="Heise">称号</div1>
+      <div class="flex1 flex column Heise">
+        <!--中-->
+        <div style="flex: 3" class="flex row Heise">
+          <div1
+            style="
+              flex: 3;
+              justify-content: flex-start;
+              align-items: first baseline;
+              overflow-y: auto;
+              height: 500px;
+              z-index: 1;
+              line-height: 55px;
+              max-height: 80vh;
+            "
+            class="flex Heise column"
+          >
+            姓名：<br />
+            年龄：<br />
+            性别：<br />
+            身高：<br />
+            体重：<br />
+            外貌：<br />
+            妄想体：<br />
+            背景经历：<br />
+            特殊物品：<br />
+            想象力：<br />
+            记忆力：<br />
+            逻辑：<br />
+            灵感：<br />
+            共情：<br />
+            理智：
+          </div1>
+          <div style="flex: 2" class="flex Heise">
+            <p>图片</p>
+          </div>
+        </div>
+        <!--下-->
+        <div1 style="flex: 1; z-index: 2" class="flex Heise"> 称号技能: </div1>
+      </div>
+    </div>
+  </body>
+</html>
