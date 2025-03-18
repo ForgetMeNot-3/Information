@@ -106,7 +106,7 @@
         }
 
         .button1 {
-          font-size: 2vh!important; /* 调整按钮字体大小 */
+          font-size: 2vh !important; /* 调整按钮字体大小 */
         }
 
         @media (max-width: 480px) {
@@ -117,7 +117,7 @@
             font-size: 2.5vh;
           }
           .button1 {
-            font-size: 2vh!important;
+            font-size: 2vh !important; /* 强制调整按钮字体大小 */
           }
         }
       }
@@ -289,7 +289,8 @@
                 setTimeout(() => {
                   passwordContainer.innerHTML = "";
                   var passwordImage = document.createElement("img");
-                  passwordImage.src = "https://i.imgur.com/LlghAkr.jpeg"; // 替换为你的图片 URL
+                  passwordImage.src =
+                    "https://s21.ax1x.com/2025/03/18/pEdbDU0.jpg"; // 替换为你的图片 URL
                   passwordImage.classList.add("password-image");
                   passwordContainer.appendChild(passwordImage);
                   passwordImage.style.display = "block";
@@ -300,7 +301,8 @@
               } else {
                 passwordContainer.innerHTML = "";
                 var passwordImage = document.createElement("img");
-                passwordImage.src = "https://i.imgur.com/LlghAkr.jpeg"; // 替换为你的图片 URL
+                passwordImage.src =
+                  "https://s21.ax1x.com/2025/03/18/pEdbDU0.jpg"; // 替换为你的图片 URL
                 passwordImage.classList.add("password-image");
                 passwordContainer.appendChild(passwordImage);
                 passwordImage.style.display = "block";
@@ -330,7 +332,7 @@
         switchPage("属性");
         var passwordContainer = document.getElementById("password-container");
         var passwordImage = document.createElement("img");
-        passwordImage.src = "https://i.imgur.com/LlghAkr.jpeg"; // 替换为你的图片 URL
+        passwordImage.src = "https://s21.ax1x.com/2025/03/18/pEdbDU0.jpg"; // 替换为你的图片 URL
         passwordImage.classList.add("password-image");
         passwordContainer.appendChild(passwordImage);
         passwordImage.style.display = "block";
@@ -340,10 +342,36 @@
     <!-- ... existing code ... -->
     <style>
       #password-container {
-    display: flex; /* 启用 flexbox 布局 */
-    justify-content: center; /* 水平居中 */
-    align-items: center; /* 垂直居中 */
-  }
+        display: flex; /* 启用 flexbox 布局 */
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        position: relative; /* 设置相对定位，方便图片绝对定位 */
+        width: 100%; /* 确保容器宽度为 100% */
+        max-height: calc(100vh - 10vh);
+        overflow: hidden; /* 防止图片溢出容器 */
+      }
+      .password-image {
+        max-width: 100%;
+        height: auto;
+        opacity: 0;
+        display: none;
+        transition: opacity 0.5s ease;
+        width: 80%; /* 设置图片宽度为 100% */
+        height: 80%; /* 设置图片高度为 100% */
+        object-fit: cover; /* 让图片覆盖整个容器且保持比例 */
+        position: absolute; /* 绝对定位，使其充满容器 */
+        top: 0;
+        left: 0;
+
+        right: 0; /* 添加 right 属性 */
+        bottom: 0; /* 添加 bottom 属性 */
+        margin: auto; /* 水平和垂直居中 */
+      }
+      .button1.flex.Heise.ziti2 {
+        /* 确保底部栏有固定高度 */
+        height: 10vh;
+        z-index: 2;
+      }
       /* 密码输入框样式 */
       .password-input {
         padding: 10px;
