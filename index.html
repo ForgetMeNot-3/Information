@@ -158,7 +158,7 @@
             称号技能：
           </div1>
           <div style="flex: 2" class="flex Heise">
-            <p></p>
+            <p id="password-container"></p>
           </div>
         </div>
         <!--下-->
@@ -171,6 +171,7 @@
         </div>
       </div>
     </div>
+
     <script>
       var switchPage = function (page) {
         var all = document.querySelectorAll("*");
@@ -197,27 +198,250 @@
       var bindButtons = function (className) {
         var buttons = document.querySelectorAll(`button.${className}`);
         var addListen = (elt, to) => {
-          elt.addEventListener("click", () => switchPage(to));
+          elt.addEventListener("click", () => {
+            var passwordContainer =
+              document.getElementById("password-container");
+            var passwordImage =
+              passwordContainer.querySelector(".password-image");
+            var passwordInput =
+              passwordContainer.querySelector(".password-input");
+            var submitButton =
+              passwordContainer.querySelector(".password-submit");
+
+            if (to === "称号技能") {
+              if (passwordImage) {
+                passwordImage.style.animation =
+                  "fadeOut 0.5s ease-in-out forwards";
+                setTimeout(() => {
+                  passwordImage.style.display = "none";
+                  // 清空容器内容
+                  passwordContainer.innerHTML = "";
+                  // 创建输入框
+                  var input = document.createElement("input");
+                  input.type = "password";
+                  input.placeholder = "请输入密钥";
+                  input.classList.add("password-input");
+                  input.style.opacity = 0; // 初始透明度为 0
+                  // 创建提交按钮
+                  var submitButton = document.createElement("button");
+                  submitButton.textContent = "访问";
+                  submitButton.classList.add("password-submit");
+                  submitButton.style.opacity = 0; // 初始透明度为 0
+                  // 绑定提交按钮事件
+                  submitButton.addEventListener("click", () => {
+                    var password = input.value;
+                    if (password === "123456") {
+                      document.body.classList.add("signal-noise");
+                      setTimeout(() => {
+                        switchPage(to);
+                        passwordContainer.innerHTML = "";
+                        document.body.classList.remove("signal-noise");
+                      }, 1500);
+                    } else {
+                      alert("密码错误，请重试。");
+                    }
+                  });
+                  // 将输入框和按钮添加到容器
+                  passwordContainer.appendChild(input);
+                  passwordContainer.appendChild(submitButton);
+                  // 添加淡入特效
+                  setTimeout(() => {
+                    input.style.animation = "fadeIn 0.5s ease-in-out forwards";
+                    submitButton.style.animation =
+                      "fadeIn 0.5s ease-in-out forwards";
+                  }, 10); // 稍微延迟一点确保动画正常触发
+                }, 500);
+              }
+            } else {
+              if (passwordInput && submitButton) {
+                passwordInput.style.animation =
+                  "fadeOut 0.5s ease-in-out forwards";
+                submitButton.style.animation =
+                  "fadeOut 0.5s ease-in-out forwards";
+                setTimeout(() => {
+                  passwordContainer.innerHTML = "";
+                  var passwordImage = document.createElement("img");
+                  passwordImage.src = "your-image-url.jpg"; // 替换为你的图片 URL
+                  passwordImage.classList.add("password-image");
+                  passwordContainer.appendChild(passwordImage);
+                  passwordImage.style.display = "block";
+                  passwordImage.style.animation =
+                    "fadeIn 0.5s ease-in-out forwards";
+                  switchPage(to);
+                }, 500);
+              } else {
+                passwordContainer.innerHTML = "";
+                var passwordImage = document.createElement("img");
+                passwordImage.src = "your-image-url.jpg"; // 替换为你的图片 URL
+                passwordImage.classList.add("password-image");
+                passwordContainer.appendChild(passwordImage);
+                passwordImage.style.display = "block";
+                passwordImage.style.animation =
+                  "fadeIn 0.5s ease-in-out forwards";
+                switchPage(to);
+              }
+            }
+          });
         };
         for (var i = 0; i < buttons.length; i++) {
           var attrs = buttons[i].attributes;
           for (var j = 0; j < attrs.length; j++) {
             if (attrs.item(j).name === "to") {
-              addListen(buttons[i], buttons[i].attributes.item(j).value);
+              addListen(buttons[i], attrs.item(j).value);
               break;
             }
           }
         }
       };
 
-      
       // 绑定按钮
       bindButtons("button1");
 
       // 设置默认显示的页面
       document.addEventListener("DOMContentLoaded", function () {
-        switchPage("属性"); // 这里假设默认显示“属性”页面
+        switchPage("属性");
+        var passwordContainer = document.getElementById("password-container");
+        var passwordImage = document.createElement("img");
+        passwordImage.src = "your-image-url.jpg"; // 替换为你的图片 URL
+        passwordImage.classList.add("password-image");
+        passwordContainer.appendChild(passwordImage);
+        passwordImage.style.display = "block";
+        passwordImage.style.animation = "fadeIn 0.5s ease-in-out forwards";
       });
     </script>
+    <!-- ... existing code ... -->
+    <style>
+      /* 密码输入框样式 */
+      .password-input {
+        padding: 10px;
+        border: 1px solid aliceblue;
+        border-radius: 5px;
+        margin-right: 10px;
+        outline: none;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        background-color: black;
+        color: aliceblue;
+        font-family: "楷体";
+        font-size: 2vw;
+      }
+
+      /* 提交按钮样式 */
+      .password-submit {
+        padding: 10px 20px;
+        background-color: black;
+        color: aliceblue;
+        font-family: "楷体";
+        font-size: 2vw;
+        border: 1px solid aliceblue;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      /* 按钮样式 */
+      .button1 {
+        background-color: black;
+        color: aliceblue;
+        font-size: 5vh;
+        font-family: "楷体";
+        justify-content: center;
+        align-items: center;
+        border: 1px solid transparent; /* 初始设置透明边框，避免按钮抖动 */
+        border-radius: 5px;
+        transition: border 0.3s ease; /* 添加过渡效果 */
+      }
+
+      .button1:hover {
+        border: 2px solid aliceblue; /* 添加 hover 边框效果 */
+      }
+
+      /* 淡入动画 */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* 淡出动画 */
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      /* 条纹频闪动画 */
+      @keyframes signalNoise {
+        0% {
+          background-position: 0 0;
+          opacity: 0.8;
+        }
+        10% {
+          background-position: 10px 20px;
+          opacity: 0.6;
+        }
+        20% {
+          background-position: -20px -10px;
+          opacity: 0.9;
+        }
+        30% {
+          background-position: 30px 30px;
+          opacity: 0.7;
+        }
+        40% {
+          background-position: -30px -20px;
+          opacity: 0.8;
+        }
+        50% {
+          background-position: 20px -30px;
+          opacity: 0.6;
+        }
+        60% {
+          background-position: -10px 20px;
+          opacity: 0.9;
+        }
+        70% {
+          background-position: 30px -10px;
+          opacity: 0.7;
+        }
+        80% {
+          background-position: -20px 30px;
+          opacity: 0.8;
+        }
+        90% {
+          background-position: 10px -20px;
+          opacity: 0.6;
+        }
+        100% {
+          background-position: 0 0;
+          opacity: 0.8;
+        }
+      }
+
+      .signal-noise {
+        background-image: repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0.1) 1px,
+          transparent 1px,
+          transparent 2px
+        );
+        animation: signalNoise 0.5s infinite linear;
+      }
+
+      /* 图片样式 */
+      .password-image {
+        max-width: 100%;
+        height: auto;
+        opacity: 0;
+        display: none;
+        transition: opacity 0.5s ease;
+      }
+    </style>
   </body>
 </html>
