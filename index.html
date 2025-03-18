@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1.0" />
     <meta name="属性界面" content="认清自己，扮演自己" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>【故事】属性界面</title>
     <style>
       [page] {
@@ -76,6 +77,17 @@
         align-items: center;
       }
 
+      @keyframes fadeIn {
+        from {
+          -webkit-opacity: 0;
+          opacity: 0;
+        }
+        to {
+          -webkit-opacity: 1;
+          opacity: 1;
+        }
+      }
+
       @media (max-width: 768px) {
         .cebian {
           display: none;
@@ -93,9 +105,21 @@
           font-size: 3vh;
         }
 
-         .button1 {
-        font-size: 4vh; /* 调整按钮字体大小 */
-      }
+        .button1 {
+          font-size: 4vh; /* 调整按钮字体大小 */
+        }
+
+        @media (max-width: 480px) {
+          .ziti1 {
+            font-size: 3vh;
+          }
+          .ziti2 {
+            font-size: 2.5vh;
+          }
+          .button1 {
+            font-size: 3vh;
+          }
+        }
       }
     </style>
   </head>
