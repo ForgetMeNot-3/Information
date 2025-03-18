@@ -1,120 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>【故事】属性页面</title>
-    <style>
-      body {
-        background-color: aliceblue;
-        margin: 0;
-        height: 100vh;
-      }
-      p {
-        color: aliceblue;
-        font-family: 楷体;
-        font-size: 2vw;
-        padding: 5px;
-      }
-      div1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: aliceblue;
-        font-size: 2vw;
-        font-family: 楷体;
-      }
-      .flex {
-        display: flex;
-      }
-      .Heise {
-        background-color: black;
-        border: 1px solid aliceblue;
-        box-sizing: border-box;
-        padding: 3px;
-      }
-      .flex1 {
-        flex: 1;
-      }
-      .column {
-        flex-direction: column;
-      }
-      .row {
-        flex-direction: row;
-      }
-      .daohang {
-        display: flex;
-        color: aliceblue;
-        font-size: 20px;
-        justify-content: center;
-      }
-      @media (max-width: 600px) {
-        .cebian {
-          display: none;
-        }
-        .neirong {
-          flex-direction: column;
-        }
-        .ziti1{
-          font-size: 5vh;
-        }
-        .ziti2{
-          font-size: 3vh;
+<script>
+  var switchPage = function (page) {
+    var all = document.querySelectorAll("*");
+    for (var i = 0; i < all.length; i++) {
+      var attrs = all[i].attributes;
+      for (var j = 0; j < attrs.length; j++) {
+        if (attrs.item(j).name === "page") {
+          if (attrs.item(j).value === page) {
+            all[i].style.display = "block";
+          } else {
+            all[i].style.display = "none";
+          }
         }
       }
-    </style>
-  </head>
-  <body class="flex">
-    <!--侧边栏-->
-    <div style="width: 150px; align-content: space-around" class="cebian Heise">
-      <div class="daohang">回归故事</div>
-      <div class="daohang" style="margin-top: 11vw; margin-bottom: 11vw">
-        转移意识
-      </div>
-      <div class="daohang">更改档案</div>
-    </div>
-    <!--内容区-->
-    <div class="flex1 flex column">
-      <div1 style="height: 60px; z-index: 2" class="Heise ziti1">称号</div1>
-      <div class="flex1 flex column Heise">
-        <!--中-->
-        <div style="flex: 3" class="flex Heise neirong">
-          <div1
-            style="
-              flex: 3;
-              justify-content: flex-start;
-              align-items: first baseline;
-              overflow-y: auto;
-              height: 500px;
-              z-index: 1;
-              line-height: 55px;
-              max-height: 80vh;
-            "
-            class="flex Heise column ziti2"
-          >
-            姓名：<br />
-            年龄：<br />
-            性别：<br />
-            身高：<br />
-            体重：<br />
-            外貌：<br />
-            妄想体：<br />
-            背景经历：<br />
-            特殊物品：<br />
-            想象力：<br />
-            记忆力：<br />
-            逻辑：<br />
-            灵感：<br />
-            共情：<br />
-            理智：
-          </div1>
-          <div style="flex: 2" class="flex Heise">
-            <p></p>
-          </div>
-        </div>
-        <!--下-->
-        <div1 style="flex: 1; z-index: 2" class="flex Heise ziti1"> 称号技能</div1>
-      </div>
-    </div>
-  </body>
-</html>
+    }
+  };
+
+  var bindButton = function (id, page) {
+    document
+      .getElementById(id)
+      .addEventListener("click", () => switchPage(page));
+  };
+
+  var bindButtons = function (className) {
+    var buttons = document.querySelectorAll(`button.${className}`);
+    var addListen = (elt, to) => {
+      elt.addEventListener("click", () => switchPage(to));
+    };
+    for (var i = 0; i < buttons.length; i++) {
+      var attrs = buttons[i].attributes;
+      for (var j = 0; j < attrs.length; j++) {
+        if (attrs.item(j).name === "to") {
+          addListen(buttons[i], buttons[i].attributes.item(j).value);
+          break;
+        }
+      }
+    }
+  };
+
+  // 绑定按钮
+  bindButtons("button1");
+
+  // 设置默认显示的页面
+  document.addEventListener('DOMContentLoaded', function() {
+    switchPage('属性'); // 这里假设默认显示“属性”页面
+  });
+</script>
