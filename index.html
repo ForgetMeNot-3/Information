@@ -250,73 +250,85 @@
         }
       }
 
-      /* 条纹频闪动画 */
-      @keyframes signalNoise {
+      @keyframes noise {
         0% {
           background-position: 0 0;
-          opacity: 0.8;
         }
-
         10% {
-          background-position: 10px 20px;
-          opacity: 0.6;
-        }
-
+          background-position: -30px 50px;
+        } /* 加大位移量 */
         20% {
-          background-position: -20px -10px;
-          opacity: 0.9;
+          background-position: 50px -80px;
         }
-
         30% {
-          background-position: 30px 30px;
-          opacity: 0.7;
+          background-position: -80px 30px;
         }
-
         40% {
-          background-position: -30px -20px;
-          opacity: 0.8;
+          background-position: 30px -50px;
         }
-
         50% {
-          background-position: 20px -30px;
-          opacity: 0.6;
+          background-position: -50px 80px;
         }
-
         60% {
-          background-position: -10px 20px;
-          opacity: 0.9;
+          background-position: 80px -30px;
         }
-
         70% {
-          background-position: 30px -10px;
-          opacity: 0.7;
+          background-position: -30px 50px;
         }
-
         80% {
-          background-position: -20px 30px;
-          opacity: 0.8;
+          background-position: 50px -80px;
         }
-
         90% {
-          background-position: 10px -20px;
-          opacity: 0.6;
+          background-position: -80px 30px;
         }
-
         100% {
           background-position: 0 0;
-          opacity: 0.8;
         }
       }
 
-      .signal-noise {
+      @keyframes signalNoise {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 200px 200px;
+        } /* 增大移动距离 */
+      }
+
+      .noise-effect {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 999;
         background-image: repeating-linear-gradient(
           0deg,
-          rgba(255, 255, 255, 0.1),
-          rgba(255, 255, 255, 0.1) 1px,
-          transparent 1px,
-          transparent 2px
+          rgba(255, 0, 0, 0.4),
+          rgba(255, 0, 0, 0.4) 3px,
+          transparent 3px,
+          transparent 6px
         );
-        animation: signalNoise 0.5s infinite linear;
+        animation: noise 0.02s infinite linear;
+      }
+
+      .signal-noise {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 999;
+        background-image: repeating-linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.2),
+          rgba(255, 255, 255, 0.2) 3px,
+          transparent 3px,
+          transparent 6px
+        );
+        animation: signalNoise 0.02s infinite linear;
       }
 
       /* 图片样式 */
@@ -490,12 +502,17 @@
                   submitButton.addEventListener("click", () => {
                     var password = input.value;
                     if (password === "123456") {
-                      document.body.classList.add("signal-noise");
+                      // 添加噪点层
+                      var noiseOverlay = document.createElement("div");
+                      noiseOverlay.className = "noise-effect signal-noise";
+                      document.body.appendChild(noiseOverlay);
+
                       setTimeout(() => {
                         switchPage(to);
+                        // 移除噪点层
+                        if (noiseOverlay) noiseOverlay.remove();
                         passwordContainer.innerHTML = "";
-                        document.body.classList.remove("signal-noise");
-                      }, 1500);
+                      }, 1500); // 保持1.5秒特效后跳转
                     } else {
                       // 隐藏密码框和提交按钮
                       input.style.display = "none";
