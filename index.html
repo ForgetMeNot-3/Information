@@ -61,16 +61,20 @@
         color: aliceblue;
         font-size: 20px;
         justify-content: center;
-        background: black;
+        background: linear-gradient(45deg, #333, #000); /* 渐变背景 */
         border: 1px solid aliceblue;
         padding: 10px;
         cursor: pointer;
         transition: all 0.3s;
+        border-radius: 5px; /* 圆角 */
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* 阴影 */
+        margin: 10px; /* 外边距 */
       }
 
       .daohang:hover {
-        background: #333;
+        background: linear-gradient(45deg, #555, #333); /* 悬停时渐变背景 */
         transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); /* 悬停时阴影 */
       }
 
       .ziti {
