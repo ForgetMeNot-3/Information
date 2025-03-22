@@ -495,8 +495,9 @@
                   "fadeOut 0.5s ease-in-out forwards";
                 setTimeout(() => {
                   passwordImage.style.display = "none";
-                  // 清空容器内容
-                  passwordContainer.innerHTML = "";
+                  if (passwordImage) {
+                    passwordImage.style.display = "none";
+                  }
                   // 创建输入框
                   var input = document.createElement("input");
                   input.type = "password";
@@ -525,12 +526,24 @@
                       noiseOverlay.className = "noise-effect signal-noise";
                       document.body.appendChild(noiseOverlay);
 
+                      // 移除输入元素
+                      input.remove();
+                      submitButton.remove();
+                      infoText.remove();
+
+                      // 重新显示原始图片
+                      var originalImage =
+                        passwordContainer.querySelector(".password-image");
+                      if (originalImage) {
+                        originalImage.style.display = "block";
+                        originalImage.style.opacity = "1";
+                        originalImage.style.animation = "fadeIn 0.5s forwards";
+                      }
+
                       setTimeout(() => {
                         switchPage(to);
-                        // 移除噪点层
                         if (noiseOverlay) noiseOverlay.remove();
-                        passwordContainer.innerHTML = "";
-                      }, 1500); // 保持1.5秒特效后跳转
+                      }, 1500);
                     } else {
                       // 隐藏密码框和提交按钮
                       input.style.display = "none";
@@ -621,9 +634,9 @@
         var passwordImage = document.createElement("img");
         passwordImage.src = "https://s21.ax1x.com/2025/03/18/pEdbDU0.jpg";
         passwordImage.classList.add("password-image");
-        passwordContainer.appendChild(passwordImage);
         passwordImage.style.display = "block";
-        passwordImage.style.animation = "fadeIn 0.5s ease-in-out forwards";
+        passwordImage.style.opacity = "1";
+        passwordContainer.appendChild(passwordImage);
         var errorTip = document.createElement("p");
         errorTip.textContent = "你真的确定吗？";
         errorTip.classList.add("password-error-tip");
