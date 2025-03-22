@@ -61,6 +61,16 @@
         color: aliceblue;
         font-size: 20px;
         justify-content: center;
+        background: black;
+        border: 1px solid aliceblue;
+        padding: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .daohang:hover {
+        background: #333;
+        transform: scale(1.05);
       }
 
       .ziti {
@@ -417,22 +427,52 @@
 
   <body class="flex">
     <!--侧边栏-->
-    <div style="width: 150px; align-content: space-around" class="cebian Heise">
-      <div class="daohang">回归故事</div>
-      <div class="daohang" style="margin-top: 11vw; margin-bottom: 11vw">
+    <div
+      style="
+        width: 150px;
+        height: 100vh;
+        align-content: space-around;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+      "
+      class="cebian Heise"
+    >
+      <button
+        class="daohang"
+        onclick="window.location.href='https://forgetmenot-3.github.io/Begin.io/'"
+      >
+        回归故事
+      </button>
+      <button
+        class="daohang"
+        onclick="window.location.href='https://forgetmenot-3.github.io/Begin.io/'"
+      >
         转移意识
-      </div>
-      <div class="daohang">修正载体</div>
+      </button>
+      <button class="daohang" id="edit-button">修正载体</button>
     </div>
     <!--内容区-->
     <div class="flex1 flex column">
-      <div1 style="height: 60px; z-index: 2" class="Heise ziti1">
+      <div1
+        style="height: 60px; z-index: 2; position: relative"
+        class="Heise ziti1"
+      >
         <div class="mobile-menu-toggle">
           <span></span>
           <span></span>
           <span></span>
         </div>
-        称号
+        <div
+          style="
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            pointer-events: none;
+          "
+        >
+          称号
+        </div>
       </div1>
       <div class="overlay"></div>
 
@@ -529,6 +569,15 @@
           elt.addEventListener("click", () => {
             var passwordContainer =
               document.getElementById("password-container");
+            // 新增：清空容器前先保存当前状态
+            const existingImage =
+              passwordContainer.querySelector(".password-image");
+
+            // 新增：每次点击前清空容器
+            passwordContainer.innerHTML = "";
+            if (existingImage) {
+              passwordContainer.appendChild(existingImage);
+            }
             var passwordImage =
               passwordContainer.querySelector(".password-image");
             var passwordInput =
@@ -719,6 +768,19 @@
             overlay.style.display = "none";
           }
         });
+      });
+      // 添加属性区域编辑功能
+      const editButton = document.getElementById("edit-button");
+      const attributeArea = document.querySelector('[page="属性"]');
+      let isEditing = false;
+
+      editButton.addEventListener("click", () => {
+        isEditing = !isEditing;
+        attributeArea.contentEditable = isEditing;
+        attributeArea.style.border = isEditing
+          ? "2px solid red"
+          : "1px solid aliceblue";
+        editButton.textContent = isEditing ? "保存修改" : "修正载体";
       });
     </script>
   </body>
