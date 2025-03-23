@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" />
     <meta name="属性界面" content="认清自己，扮演自己" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>九重秋叶 溯冥</title>
+    <title>【故事】属性界面</title>
     <style>
       [page] {
         display: none;
@@ -61,6 +61,20 @@
         color: aliceblue;
         font-size: 20px;
         justify-content: center;
+        background: linear-gradient(45deg, #333, #000); /* 渐变背景 */
+        border: 1px solid aliceblue;
+        padding: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-radius: 5px; /* 圆角 */
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* 阴影 */
+        margin: 10px; /* 外边距 */
+      }
+
+      .daohang:hover {
+        background: linear-gradient(45deg, #555, #333); /* 悬停时渐变背景 */
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); /* 悬停时阴影 */
       }
 
       .ziti {
@@ -89,6 +103,65 @@
       }
 
       @media (max-width: 768px) {
+        .mobile-menu-toggle {
+          display: block;
+          position: absolute;
+          left: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 30px;
+          height: 22px;
+          cursor: pointer;
+          z-index: 100;
+        }
+
+        .mobile-menu-toggle span {
+          display: block;
+          position: absolute;
+          height: 3px;
+          width: 100%;
+          background: aliceblue;
+          border-radius: 3px;
+          transition: 0.3s;
+        }
+
+        .mobile-menu-toggle span:nth-child(1) {
+          top: 0;
+        }
+        .mobile-menu-toggle span:nth-child(2) {
+          top: 10px;
+        }
+        .mobile-menu-toggle span:nth-child(3) {
+          top: 20px;
+        }
+
+        .cebian {
+          position: fixed;
+          left: -250px;
+          top: 0;
+          height: 100vh;
+          width: 200px;
+          transition: 0.3s;
+          z-index: 99;
+          background: black;
+          display: block !important;
+        }
+
+        .cebian.active {
+          left: 0;
+        }
+
+        .overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 98;
+        }
+
         .cebian {
           display: none;
         }
@@ -358,18 +431,55 @@
 
   <body class="flex">
     <!--侧边栏-->
-    <div style="width: 150px; align-content: space-around" class="cebian Heise">
-      <div class="daohang">回归故事</div>
-      <div class="daohang" style="margin-top: 11vw; margin-bottom: 11vw">
+    <div
+      style="
+        width: 150px;
+        height: 100vh;
+        align-content: space-around;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+      "
+      class="cebian Heise"
+    >
+      <button
+        class="daohang"
+        onclick="window.location.href='https://forgetmenot-3.github.io/Begin.io/'"
+      >
+        回归故事
+      </button>
+      <button
+        class="daohang"
+        onclick="window.location.href='https://forgetmenot-3.github.io/Begin.io/'"
+      >
         转移意识
-      </div>
-      <div class="daohang">更改档案</div>
+      </button>
+      <button class="daohang" id="edit-button">修正载体</button>
     </div>
     <!--内容区-->
     <div class="flex1 flex column">
-      <div1 style="height: 60px; z-index: 2" class="Heise ziti1">
-        【如我所愿】
+      <div1
+        style="height: 60px; z-index: 2; position: relative"
+        class="Heise ziti1"
+      >
+        <div class="mobile-menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div
+          style="
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            pointer-events: none;
+          "
+        >
+          【如我所愿】
+        </div>
       </div1>
+      <div class="overlay"></div>
+
       <div class="flex1 flex column Heise">
         <!--中-->
         <div style="flex: 3" class="flex Heise neirong">
@@ -409,7 +519,7 @@
             逻辑：5（志怪者万能借口，怪力乱神）<br />
             灵感：8（也许猜得到）<br />
             共情：4（为什么不按我说的离开呢？）<br />
-            理智：8（比起失控更倾向于狂热）
+            理智：8（比起失控更倾向于狂热）<br />
           </div1>
           <div1
             page="称号技能"
@@ -479,6 +589,15 @@
           elt.addEventListener("click", () => {
             var passwordContainer =
               document.getElementById("password-container");
+            // 新增：清空容器前先保存当前状态
+            const existingImage =
+              passwordContainer.querySelector(".password-image");
+
+            // 新增：每次点击前清空容器
+            passwordContainer.innerHTML = "";
+            if (existingImage) {
+              passwordContainer.appendChild(existingImage);
+            }
             var passwordImage =
               passwordContainer.querySelector(".password-image");
             var passwordInput =
@@ -495,6 +614,7 @@
                   "fadeOut 0.5s ease-in-out forwards";
                 setTimeout(() => {
                   passwordImage.style.display = "none";
+                  //passwordContainer.innerHTML = "";
                   if (passwordImage) {
                     passwordImage.style.display = "none";
                   }
@@ -526,18 +646,19 @@
                       noiseOverlay.className = "noise-effect signal-noise";
                       document.body.appendChild(noiseOverlay);
 
-                      // 移除输入元素
+                      // 移除输入框和按钮
                       input.remove();
                       submitButton.remove();
                       infoText.remove();
 
-                      // 重新显示原始图片
+                      // 重新显示原始图片（通过DOM操作而非创建新元素）
                       var originalImage =
                         passwordContainer.querySelector(".password-image");
                       if (originalImage) {
                         originalImage.style.display = "block";
-                        originalImage.style.opacity = "1";
                         originalImage.style.animation = "fadeIn 0.5s forwards";
+                        originalImage.style.opacity = "1"; // 强制设置透明度
+                        originalImage.classList.remove("fadeOut"); // 移除可能存在的淡出动画
                       }
 
                       setTimeout(() => {
@@ -634,14 +755,52 @@
         var passwordImage = document.createElement("img");
         passwordImage.src = "https://s21.ax1x.com/2025/03/18/pEdbDU0.jpg";
         passwordImage.classList.add("password-image");
-        passwordImage.style.display = "block";
-        passwordImage.style.opacity = "1";
+        passwordImage.style.display = "block"; // 初始即显示
+        passwordImage.style.opacity = "1"; // 初始不透明
         passwordContainer.appendChild(passwordImage);
         var errorTip = document.createElement("p");
         errorTip.textContent = "你真的确定吗？";
         errorTip.classList.add("password-error-tip");
         infoText.style.display = "none";
         passwordContainer.appendChild(errorTip);
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.querySelector(".mobile-menu-toggle");
+        const sidebar = document.querySelector(".cebian");
+        const overlay = document.querySelector(".overlay");
+
+        menuToggle.addEventListener("click", function (e) {
+          e.stopPropagation();
+          sidebar.classList.toggle("active");
+          overlay.style.display = "block";
+        });
+
+        overlay.addEventListener("click", function () {
+          sidebar.classList.remove("active");
+          overlay.style.display = "none";
+        });
+
+        // 点击外部关闭侧边栏
+        document.addEventListener("click", function (e) {
+          if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+            sidebar.classList.remove("active");
+            overlay.style.display = "none";
+          }
+        });
+      });
+      // 添加属性区域编辑功能
+      const editButton = document.getElementById("edit-button");
+      const attributeArea = document.querySelector('[page="属性"]');
+      let isEditing = false;
+
+      editButton.addEventListener("click", () => {
+        isEditing = !isEditing;
+        attributeArea.contentEditable = isEditing;
+        attributeArea.style.border = isEditing
+          ? "2px solid red"
+          : "1px solid aliceblue";
+        editButton.textContent = isEditing ? "保存修改" : "修正载体";
       });
     </script>
   </body>
